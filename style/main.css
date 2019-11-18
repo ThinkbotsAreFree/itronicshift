@@ -6,7 +6,7 @@ body * {
 body, #term-input, #term-output {
     background: #222;
     color: #ddd;
-    font-family: Consolas;
+    font-family: Consolas, monaco, monospace, monospace;
     margin: 0;
     padding: 0;
 }
