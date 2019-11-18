@@ -1,0 +1,66 @@
+
+body * {
+    font-size: 12px !important;        
+}
+
+body, #term-input, #term-output {
+    background: #222;
+    color: #ddd;
+    font-family: Consolas;
+    margin: 0;
+    padding: 0;
+}
+#term-input, #term-userzone {
+    background: #333;
+    border: none;
+    outline: none;
+}
+#prompt {
+    float: left;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+#term-input {
+    flex-basis: 100%;
+    flex-shrink: 1;
+    flex-grow: 0;
+    resize: vertical;
+}
+#term-userzone {
+    display: flex;
+}
+td, th {
+    border: 1px dashed #ddd;
+    padding: 1em;
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+}
+th {
+    font-weight: normal;
+    text-decoration: underline;
+}
+ul {
+    list-style: square;
+}
+h1, h2, h3 {
+    margin-top: 2em;
+    text-decoration: underline;
+}
+/* https://2ality.com/2012/01/numbering-headingshtml.html */
+h1 {
+    counter-reset: h2counter;
+}
+h2 {
+    counter-reset: h3counter;
+}
+h2:before {
+    content: counter(h2counter) ".\0000a0";
+    counter-increment: h2counter;
+}
+h3:before {
+    content: counter(h2counter) "." counter(h3counter) ".\0000a0";
+    counter-increment: h3counter;
+}
+

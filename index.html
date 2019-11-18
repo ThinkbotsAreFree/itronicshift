@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[X-AM]</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>iTronic Shift</h1>
+    <div id="term-output">
+    </div>
+    <div id="term-userzone">
+        <div id="prompt"></div>
+        <textarea id="term-input" onkeypress="ui.onInputKeypress();"></textarea>
+    </div>
+
+    <h2>Overview</h2>
+    <p>The interTronic [X-AM] Cross-ActiveMemory Virtual Controller is a register-based, vintage style, virtual machine for Javascript in Node & browsers. It features:
+        <ul>
+            <li>Support for low-level multitasking (max. 16 threads), with a CoreWars-inspired SPL instruction,</li>
+            <li>Programmable through a custom assembly language, which is compiled to bytecode before execution,</li>
+            <li>64Kb of addressable memory,</li>
+            <li>Each VM can be plugged to 6 other VMs to form a computing grid,</li>
+            <li>Straightforward API allows easy implementation of HTML5/CSS3/JS devices,</li>
+            <li>Designed to be like a MUD/MUSH where users and programs can share a subjective experience in "the Grid".</li>
+        </ul>
+    </p>
+
+    <h2>Page zero</h2>
+    <p>The page zero is the memory range from 0x0000 to 0x00FF. It has 3 parts: SCHED, MMAP, ENVS.</p>
+    <table>
+        <tr>
+            <th>Part</th>
+            <th>Location</th>
+            <th>Size</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>SCHED<br>(Scheduler)</td>
+            <td>From 0x00 to 0x0F</td>
+            <td>16 bytes</td>
+            <td>Pointers to currently active environments.</td>
+        </tr>
+        <tr>
+            <td>MMAP<br>(Memory Map)</td>
+            <td>From 0x10 to 0x2F</td>
+            <td>32 bytes</td>
+            <td>Memory pages occupation, 1 bit = 1 page.<br>1: Occupied page,  0: Free page.</td>
+        </tr>
+        <tr>
+            <td>ENVS<br>(Environments)</td>
+            <td>From 0x30 to 0xFF</td>
+            <td>16 × 13 bytes<br>= 208 bytes</td>
+            <td>
+                Next Environment (byte)<br>
+                Previous Environment (byte)<br>
+                Program Counter (word)<br>
+                Stack Pointer (word)<br>
+                Interrupt Handler (word)<br>
+                Data Index (byte)<br>
+                Data Length (byte)<br>
+                Accumulator (word)<br>
+                Flag Register (byte)<br>
+            </td>
+        </tr>
+    </table>
+
+    <br><br><br><br>
+
+    <script src="ui.js"></script>
+
+    <script src="sysmain.js"></script>
+    <script src="mmap.js"></script>
+    <script src="env.js"></script>
+    <script src="proc.js"></script>
+
+    <script src="test.js"></script>
+
+</body>
+</html>
