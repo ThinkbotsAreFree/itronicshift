@@ -1,6 +1,6 @@
 
 
-var chip;
+var chip = new Chip();
 
 
 
@@ -26,7 +26,6 @@ ui.log("[findFreeSpace(4)]", chip.findFreeSpace(4));
 ui.log();
 
 */
-
 
 
 
@@ -69,13 +68,19 @@ ui.log("[newProc]", chip.newProc({
 
 ui.log(ui.toBin(chip.raw, MMAP_ADDR, MMAP_ADDR+MMAP_SIZE));
 
+ui.log("[TEST] newThread again on proc 0");
 
+data =    new Uint8Array([60, 50, 40]);
+program = new Uint8Array([9, 10, 11, 12]);
 
+ui.log("[newThread]", chip.newThread(0, {
+    dataContent: data,
+    programContent: program
+}));
 
-
+ui.log(ui.toBin(chip.raw, MMAP_ADDR, MMAP_ADDR+MMAP_SIZE));
 
 ui.log(ui.toHex(chip.mem));
-
 
 
 

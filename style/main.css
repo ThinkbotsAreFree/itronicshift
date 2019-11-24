@@ -1,9 +1,10 @@
 
-body * {
-    font-size: 12px !important;        
+html, body * {
+    scrollbar-color: #444 #222 !important;     
+    font-size: 12px !important;
 }
 
-body, #term-input, #term-output {
+body, #term-input, #term-output { 
     background: #222;
     color: #ddd;
     font-family: Consolas, monaco, monospace, monospace;

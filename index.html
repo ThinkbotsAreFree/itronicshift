@@ -66,7 +66,49 @@
         </tr>
     </table>
 
+    <h2>Opcodes</h2>
+
+    <p>Addressing modes</p>
+    <table>
+        <tr>
+            <th>Mode</th>
+            <th>Size</th>
+            <th>Description</th>
+        </tr>
+        <tr><td>Immediate Addressing</td><td>1</td><td>constant byte as operand</td></tr>
+        <tr><td>Immediate Extended Addressing</td><td>2</td><td>constant word as operand</td></tr>
+        <tr><td>Direct Relative Addressing</td><td>1</td><td>signed byte + current PC is the address of the operand</td></tr>
+        <tr><td>Direct Relative Extended Addressing</td><td>2</td><td>signed word + current PC is the address of the operand</td></tr>
+        <tr><td>Direct Register Addressing</td><td>1</td><td>register that contains the operand</td></tr>
+        <tr><td>Direct Page Zero Addressing</td><td>1</td><td>address in page zero that contains the operand</td></tr>
+        <tr><td>Direct Real Addressing</td><td>2</td><td>real address that contains the operand</td></tr>
+        <tr><td>Direct Indexed Addressing</td><td>2</td><td>address relative to dataIndex that contains the operand</td></tr>
+        <tr><td>Indirect Relative Addressing</td><td>1</td><td>signed byte + current PC is the address of the address of the operand</td></tr>
+        <tr><td>Indirect Relative Extended Addressing</td><td>2</td><td>signed word + current PC is the address of the address of the operand</td></tr>
+        <tr><td>Indirect Register Addressing</td><td>1</td><td>register that contains the address of the operand</td></tr>
+        <tr><td>Indirect Page Zero Addressing</td><td>1</td><td>address in page zero that contains the address of the operand</td></tr>
+        <tr><td>Indirect Real Addressing</td><td>2</td><td>real address that contains the address of the operand</td></tr>
+        <tr><td>Indirect Indexed Addressing</td><td>2</td><td>address relative to dataIndex that contains the address of the operand</td></tr>
+        
+            
+    </table>
+
+    <p>Opcodes</p>
+
+    <table>
+        <tr>
+            <th>Opcode</th>
+            <th>Binary</th>
+            <th>Description</th>
+        </tr>
+    </table>
+
+
     <br><br><br><br>
+
+
+
+    <script src="script/peg-0.10.0.min.js"></script>
 
     <script src="script/ui.js"></script>
 
@@ -74,6 +116,7 @@
     <script src="script/mmap.js"></script>
     <script src="script/env.js"></script>
     <script src="script/proc.js"></script>
+    <script src="script/opcode.js"></script>
 
     <script src="script/test.js"></script>
 

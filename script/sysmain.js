@@ -19,10 +19,14 @@ const // registers
     NEXTF_ENV = 1,
     NB_PROCS =  2;
 
+const // flags
+    CARRY = 0,
+    ZERO =  1;
 
-function hi(w) {     return w >> 8 & 255; }
-function lo(w) {     return w & 255;      }
-function w(hi, lo) { return hi << 8 | lo; }
+
+function hi(w) {     return w >> 8 & 0xFF;                  }
+function lo(w) {     return w & 0xFF;                       }
+function w(hi, lo) { return (hi % 0xFF) << 8 | (lo % 0xFF); }
 
 
 function Chip() {
@@ -63,5 +67,24 @@ Chip.prototype.memRawWriteW = function(addr, w) {
 
     this.raw[addr] =   hi(w);
     this.raw[addr+1] = lo(w);
+}
+
+
+Chip.prototype.getProgramCounter = function() {
+
+    return ((this.raw[this.raw[this.reg[CUR_PROC]]+0x02]) << 8) + this.raw[this.raw[this.reg[CUR_PROC]]+0x03];
+}
+
+
+Chip.prototype.getDataIndex = function() {
+
+    return this.raw[this.raw[this.reg[CUR_PROC]]+0x08];
+}
+
+
+Chip.prototype.at = function(addr1, addr2) {
+    
+    if (typeof addr2 == "undefined") return this.raw[addr1 % 0xFFFF];
+    return this.raw[w(addr1, addr2) % 0xFFFF];
 }
 

@@ -115,11 +115,14 @@ Chip.prototype.newThread = function(procId, opt) {
             this.getEnv(this.sched[procId], "nextEnv")  // next is next of current
         );
 
+        // we'll need the next as it was before overwriting
+        var savedNext = this.getEnv(this.sched[procId], "nextEnv");
+
         // next of current must be set to this one
         this.setEnv(this.sched[procId], { nextEnv: envAddress });
 
         // previous of next must be set to this one
-        this.setEnv(this.getEnv(this.sched[procId], "nextEnv"), { previousEnv: envAddress });
+        this.setEnv(savedNext, { previousEnv: envAddress });
 
     }
 
