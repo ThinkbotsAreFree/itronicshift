@@ -4,111 +4,95 @@
     <title>[X-AM]</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style/normalize.css">
+    <link rel="stylesheet" href="style/augmented.css">
     <link rel="stylesheet" href="style/main.css">
 </head>
-<body>
-    <h1>iTronic Shift</h1>
-    <div id="term-output">
+<body><div id="background"></div>
+
+
+    
+    <div id="master">
+
+        <div class="demo screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title title-lit">Terminal I/O</div>
+        </div>
+        <div class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 2.0</div>
+        </div>
+        <div class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 3.0</div>
+        </div>
+        <div class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title">Console 4.0</div>
+        </div>
+
+        <div class="demo screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title title-lit">Terminal I/O</div>
+        </div>
+        <div class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 2.0</div>
+        </div>
+        <div class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 3.0</div>
+        </div>
+        <div class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title">Console 4.0</div>
+        </div>
+
     </div>
-    <div id="term-userzone">
-        <div id="prompt"></div>
-        <textarea id="term-input" onkeypress="ui.onInputKeypress();"></textarea>
+
+    <!--div id="function-keys" augmented-ui="tl-clip-x tr-clip-x exe">
+        <div class="half-function-keys">
+            <div class="quarter-function-keys">
+                <div class="fslot" id="f1"><span class="fkey">F1</span><span class="fcom">Test</span></div>
+                <div class="fslot" class="fslot" id="f2"><span class="fkey">F2</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f3"><span class="fkey">F3</span><span class="fcom">&nbsp;</span></div>
+            </div>
+            <div class="quarter-function-keys">
+                <div class="fslot" id="f4"><span class="fkey">F4</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f5"><span class="fkey">F5</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f6"><span class="fkey">F6</span><span class="fcom">&nbsp;</span></div>
+            </div>
+        </div>
+        <div class="half-function-keys">
+            <div class="quarter-function-keys">
+                <div class="fslot" id="f7"><span class="fkey">F7</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f8"><span class="fkey">F8</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f9"><span class="fkey">F9</span><span class="fcom">&nbsp;</span></div>
+            </div>
+            <div class="quarter-function-keys">
+                <div class="fslot" id="f10"><span class="fkey">F10</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f11"><span class="fkey">F11</span><span class="fcom">&nbsp;</span></div>
+                <div class="fslot" id="f12"><span class="fkey">F12</span><span class="fcom">&nbsp;</span></div>
+            </div>
+        </div>
+    </div-->
+
+
+
+    <div id="function-keys" augmented-ui="tl-clip-x tr-clip-x exe">
+        <div class="half-function-keys">
+            <div class="fslot" id="f1"><span class="fkey">C1</span><span class="fcom">Test</span></div>
+            <div class="fslot" id="f2"><span class="fkey">C2</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f3"><span class="fkey">C3</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f4"><span class="fkey">C4</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f5"><span class="fkey">C5</span><span class="fcom">&nbsp;</span></div>
+        </div>
+        <div class="half-function-keys">
+            <div class="fslot" id="f6"><span class="fkey">C6</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f7"><span class="fkey">C7</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f8"><span class="fkey">C8</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f9"><span class="fkey">C9</span><span class="fcom">&nbsp;</span></div>
+            <div class="fslot" id="f0"><span class="fkey">C0</span><span class="fcom">&nbsp;</span></div>
+        </div>
     </div>
-
-    <h2>Overview</h2>
-    <p>The interTronic [X-AM] Cross-ActiveMemory Virtual Controller is a register-based, vintage style, virtual machine for Javascript in Node & browsers. It features:
-        <ul>
-            <li>Support for low-level multitasking (max. 16 threads), with a CoreWars-inspired SPL instruction,</li>
-            <li>Programmable through a custom assembly language, which is compiled to bytecode before execution,</li>
-            <li>64Kb of addressable memory,</li>
-            <li>Each VM can be plugged to 6 other VMs to form a computing grid,</li>
-            <li>Straightforward API allows easy implementation of HTML5/CSS3/JS devices,</li>
-            <li>Designed to be like a MUD/MUSH where users and programs can share a subjective experience in "the Grid".</li>
-        </ul>
-    </p>
-
-    <h2>Page zero</h2>
-    <p>The page zero is the memory range from 0x0000 to 0x00FF. It has 3 parts: SCHED, MMAP, ENVS.</p>
-    <table>
-        <tr>
-            <th>Part</th>
-            <th>Location</th>
-            <th>Size</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>SCHED<br>(Scheduler)</td>
-            <td>From 0x00 to 0x0F</td>
-            <td>16 bytes</td>
-            <td>Pointers to currently active environments.</td>
-        </tr>
-        <tr>
-            <td>MMAP<br>(Memory Map)</td>
-            <td>From 0x10 to 0x2F</td>
-            <td>32 bytes</td>
-            <td>Memory pages occupation, 1 bit = 1 page.<br>1: Occupied page,  0: Free page.</td>
-        </tr>
-        <tr>
-            <td>ENVS<br>(Environments)</td>
-            <td>From 0x30 to 0xFF</td>
-            <td>16 × 13 bytes<br>= 208 bytes</td>
-            <td>
-                Next Environment (byte)<br>
-                Previous Environment (byte)<br>
-                Program Counter (word)<br>
-                Stack Pointer (word)<br>
-                Interrupt Handler (word)<br>
-                Data Index (byte)<br>
-                Data Length (byte)<br>
-                Accumulator (word)<br>
-                Flag Register (byte)<br>
-            </td>
-        </tr>
-    </table>
-
-    <h2>Opcodes</h2>
-
-    <p>Addressing modes</p>
-    <table>
-        <tr>
-            <th>Mode</th>
-            <th>Size</th>
-            <th>Description</th>
-        </tr>
-        <tr><td>Immediate Addressing</td><td>1</td><td>constant byte as operand</td></tr>
-        <tr><td>Immediate Extended Addressing</td><td>2</td><td>constant word as operand</td></tr>
-        <tr><td>Direct Relative Addressing</td><td>1</td><td>signed byte + current PC is the address of the operand</td></tr>
-        <tr><td>Direct Relative Extended Addressing</td><td>2</td><td>signed word + current PC is the address of the operand</td></tr>
-        <tr><td>Direct Register Addressing</td><td>1</td><td>register that contains the operand</td></tr>
-        <tr><td>Direct Page Zero Addressing</td><td>1</td><td>address in page zero that contains the operand</td></tr>
-        <tr><td>Direct Real Addressing</td><td>2</td><td>real address that contains the operand</td></tr>
-        <tr><td>Direct Indexed Addressing</td><td>2</td><td>address relative to dataIndex that contains the operand</td></tr>
-        <tr><td>Indirect Relative Addressing</td><td>1</td><td>signed byte + current PC is the address of the address of the operand</td></tr>
-        <tr><td>Indirect Relative Extended Addressing</td><td>2</td><td>signed word + current PC is the address of the address of the operand</td></tr>
-        <tr><td>Indirect Register Addressing</td><td>1</td><td>register that contains the address of the operand</td></tr>
-        <tr><td>Indirect Page Zero Addressing</td><td>1</td><td>address in page zero that contains the address of the operand</td></tr>
-        <tr><td>Indirect Real Addressing</td><td>2</td><td>real address that contains the address of the operand</td></tr>
-        <tr><td>Indirect Indexed Addressing</td><td>2</td><td>address relative to dataIndex that contains the address of the operand</td></tr>
-        
-            
-    </table>
-
-    <p>Opcodes</p>
-
-    <table>
-        <tr>
-            <th>Opcode</th>
-            <th>Binary</th>
-            <th>Description</th>
-        </tr>
-    </table>
-
-
-    <br><br><br><br>
-
 
 
     <script src="script/peg-0.10.0.min.js"></script>
+    <script src="script/shortcut.js"></script> <!-- http://www.openjs.com/scripts/events/keyboard_shortcuts/ -->
+    <script src="script/jquery-3.4.1.min.js"></script>
+    <script src="script/isotope.pkgd.min.js"></script>
+    <script src="script/masonry-horizontal.js"></script>
 
     <script src="script/ui.js"></script>
 
@@ -117,6 +101,7 @@
     <script src="script/env.js"></script>
     <script src="script/proc.js"></script>
     <script src="script/opcode.js"></script>
+    <script src="script/engine.js"></script>
 
     <script src="script/test.js"></script>
 

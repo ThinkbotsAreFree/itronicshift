@@ -2,19 +2,29 @@
 
 
 var _b = {};    // this is our opcode builder
-                // we'll use it to build both documentation and implementation
+// we'll use it to build both documentation and implementation
 
 
 
 _b.addressingModes = {
-    IM: {
+    UI: {
         desc: "constant byte as operand",
-        name: "immediateAddressing",
+        name: "unsignedImmediateAddressing",
         size: 1
     },
-    IMX: {
+    UIX: {
         desc: "constant word as operand",
-        name: "immediateExtendedAddressing",
+        name: "unsignedImmediateExtendedAddressing",
+        size: 2
+    },
+    SI: {
+        desc: "constant byte as operand",
+        name: "signedImmediateAddressing",
+        size: 1
+    },
+    SIX: {
+        desc: "constant word as operand",
+        name: "signedImmediateExtendedAddressing",
         size: 2
     },
     DR: {
@@ -90,7 +100,7 @@ _b.instructions = {
         args: [],
         addressingModes: [
         ],
-    }, 
+    },
     MOV: {
         fullName: "Move",
         args: [
@@ -99,7 +109,8 @@ _b.instructions = {
         ],
         addressingModes: [
             ["DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+
         ],
     },
     EXCH: {
@@ -157,7 +168,7 @@ _b.instructions = {
         addressingModes: [
             ["DA", "DI",],
             ["DA", "DI"],
-            ["IMX", "DZ"],
+            ["UIX", "DZ"],
         ],
     },
     ADD: {
@@ -166,7 +177,7 @@ _b.instructions = {
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     SUB: {
@@ -175,25 +186,32 @@ _b.instructions = {
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
-    ADDC: {
-        fullName: "Add With Carry",
+    MUL: {
+        fullName: "Multiply",
         args: [
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
-    SUBC: {
-        fullName: "Substract With Carry",
+    DIV: {
+        fullName: "Divide",
         args: [
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+        ],
+    },
+    MOD: {
+        fullName: "Modulo",
+        args: [],
+        addressingModes: [
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     AND: {
@@ -202,7 +220,7 @@ _b.instructions = {
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     OR: {
@@ -211,7 +229,7 @@ _b.instructions = {
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     XOR: {
@@ -220,83 +238,55 @@ _b.instructions = {
             "Value"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+        ],
+    },
+    NOT: {
+        fullName: "Bitwise NOT",
+        args: [],
+        addressingModes: [
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     SHL: {
         fullName: "Shift Left",
         args: [],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     SHR: {
         fullName: "Shift Right",
         args: [],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
-    RL: {
+    ROL: {
         fullName: "Rotate Left",
         args: [],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
-    RR: {
+    ROR: {
         fullName: "Rotate Right",
         args: [],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
-        ],
-    },
-    RLC: {
-        fullName: "Rotate Left With Carry",
-        args: [],
-        addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
-        ],
-    },
-    RRC: {
-        fullName: "Rotate Right With Carry",
-        args: [],
-        addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
     BIT: {
-        fullName: "Get Bit",
+        fullName: "Constant Bit",
         args: [
             "Target",
-            "Position"
         ],
         addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
+            ["UI", "UIX", "SI", "SIX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
         ],
     },
-    BON: {
-        fullName: "Set Bit On",
-        args: [
-            "Target",
-            "Position",
-        ],
-        addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
-            ["IM"],
-        ],
-    },
-    BOFF: {
-        fullName: "Set Bit Off",
-        args: [
-            "Target",
-            "Position",
-        ],
-        addressingModes: [
-            ["IM", "IMX", "DR", "DRX", "DE", "DZ", "DA", "DI", "IR", "IRX", "IE", "IZ", "IA", "II"],
-            ["IM"],
-        ],
-    },
+    // empty slot
+    // empty slot
     JMP: {
         fullName: "Jump",
         args: [
@@ -333,7 +323,7 @@ _b.instructions = {
         addressingModes: [
 
         ],
-    },    
+    },
     SPL: {
         fullName: "Split",
         args: [
@@ -342,7 +332,7 @@ _b.instructions = {
         addressingModes: [
 
         ],
-    },    
+    },
     SEQ: {
         fullName: "Skip If Equal",
         args: [
@@ -426,50 +416,69 @@ _b.labelINSTR = Object.keys(_b.instructions);
 
 Chip.prototype.fetch = {
 
-    //  Immediate Extended Addressing
+    //  Unsigned Immediate Extended Addressing
     //  #0000
-    IMX: function(size, b0, b1) {
+    UIX: function (size, addressOnly, b0, b1) {
         if (size == 1) return b0;
         return w(b0, b1);
     },
-    
-    //  Immediate Addressing
+
+    //  Unsigned Immediate Addressing
     //  #00
-    IM: function(size, b0) {
-        if (size == 2) return w(b0, 0);
-        return b0;
+    UI: function (size, addressOnly, b0, b1) {
+        if (size == 2) return w(0, b1);
+        return b1;
+    },
+
+    //  Signed Immediate Extended Addressing
+    //  #-0000
+    SIX: function (size, addressOnly, b0, b1) {
+        if (size == 1) return fromSignedByte(b0);
+        return fromSignedWord(w(b0, b1));
+    },
+
+    //  Signed Immediate Addressing
+    //  #-00
+    SI: function (size, addressOnly, b0, b1) {
+        if (size == 2) return fromSignedWord(w(0, b1));
+        return fromSignedByte(b1);
     },
 
     //  Direct Relative Extended Addressing
-    //  $+0000
-    DRX: function(size, b0, b1) {
-        var addr = this.getProgramCounter() + w(b0, b1) - 0x7FFF;
+    //  $&0000
+    DRX: function (size, addressOnly, b0, b1) {
+        var addr = this.getProgramCounter() + w(b0, b1) - 0x8000;
+        if (addressOnly) return addr;
         var result = this.at(addr);
-        if (size == 2) result = w(result, this.at(addr+1));
+        if (size == 2) result = w(result, this.at(addr + 1));
         return result;
     },
 
     //  Direct Page Zero Addressing
-    //  $+00
-    DR: function(size, b0) {
-        var addr = this.getProgramCounter() + b0 - 0x7F;
+    //  $&00
+    DR: function (size, addressOnly, b0, b1) {
+        var addr = this.getProgramCounter() + b1 - 0x80;
+        if (addressOnly) return addr;
         var result = this.at(addr);
-        if (size == 2) result = w(result, this.at(addr+1));
+        if (size == 2) result = w(result, this.at(addr + 1));
         return result;
     },
 
     //  Direct Environment Addressing
     //  $€00
-    DE: function(size, b0) {
-        var addr = w(this.getDataIndex(), b0);
+    DE: function (size, addressOnly, b0, b1) {
+        var addr = this.raw[this.reg[CUR_PROC]] + b1;
+        console.log("[addr]", addr);
+        if (addressOnly) return addr;
         var result = this.at(addr);
-        if (size == 2) result = w(result, this.at(addr+1));
+        if (size == 2) result = w(result, this.at(addr + 1));
         return result;
     },
 
     //  Direct Absolute Addressing
     //  $_0000
-    DA: function(size, b0, b1) {
+    DA: function (size, addressOnly, b0, b1) {
+        if (addressOnly) return w(b0, b1);
         var result = this.at(b0, b1);
         if (size == 2) result = w(result, this.at(b0, b1 + 1));
         return result;
@@ -477,110 +486,168 @@ Chip.prototype.fetch = {
 
     //  Direct Indexed Addressing
     //  $|0000
-    DI: function(size, b0, b1) {
+    DI: function (size, addressOnly, b0, b1) {
         var addr = w(this.getDataIndex() + b0, b1);
+        if (addressOnly) return addr;
         var result = this.at(addr);
-        if (size == 2) result = w(result, this.at(addr+1));
+        if (size == 2) result = w(result, this.at(addr + 1));
         return result;
     },
 
     //  Direct Page Zero Addressing
     //  $|00
-    DZ: function(size, b0) {
-        var addr = w(this.getDataIndex(), b0);
+    DZ: function (size, addressOnly, b0, b1) {
+        var addr = w(this.getDataIndex(), b1);
+        if (addressOnly) return addr;
         var result = this.at(addr);
-        if (size == 2) result = w(result, this.at(addr+1));
+        if (size == 2) result = w(result, this.at(addr + 1));
         return result;
     },
 
     // Indirect Relative Extended Addressing
-    //  @+0000
-    IRX: function(size, b0, b1) {
-        var addr = (this.getProgramCounter() + w(b0, b1) - 0x7FFF) % 0xFFFF;
+    //  @&0000
+    IRX: function (size, addressOnly, b0, b1) {
+        var addr = (this.getProgramCounter() + w(b0, b1) - 0x8000) % 0xFFFF;
         var resultAddr = this.raw[addr];
-        resultAddr = w(resultAddr, this.raw[(addr+1) % 0xFFFF]);
+        resultAddr = w(resultAddr, this.raw[(addr + 1) % 0xFFFF]);
+        if (addressOnly) return resultAddr;
 
-        // indirect addressing if always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        // indirect addressing is always indexed
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
     // Indirect Relative Addressing
-    //  @+00
-    IR: function(size, b0) {
-        var addr = (this.getProgramCounter() + b0 - 0x7F) % 0xFFFF;
+    //  @&00
+    IR: function (size, addressOnly, b0, b1) {
+        var addr = (this.getProgramCounter() + b1 - 0x80) % 0xFFFF;
         var resultAddr = this.raw[addr];
-        resultAddr = w(resultAddr, this.raw[(addr+1) % 0xFFFF]);
+        resultAddr = w(resultAddr, this.raw[(addr + 1) % 0xFFFF]);
+        if (addressOnly) return resultAddr;
 
-        // indirect addressing if always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        // indirect addressing is always indexed
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
     // Indirect Environment Addressing
     //  @€00
-    IE: function(size, b0) {
+    IE: function (size, addressOnly, b0, b1) {
         var envStart = this.raw[this.reg[CUR_PROC]];
-        var resultAddr = this.at(envStart + (b0 % 13), envStart + ((b0+1) % 13));
+        var resultAddr = this.at(envStart + (b1 % 13), envStart + ((b1 + 1) % 13));
+        if (addressOnly) return resultAddr;
 
-        // indirect addressing if always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        // indirect addressing is always indexed
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
     // Indirect Absolute Addressing
     //  @_0000
-    IA: function(size, b0, b1) {
+    IA: function (size, addressOnly, b0, b1) {
 
         // addr is the absolute address of the address of the operand
         var addr = w(b0, b1);
 
         // resultAddr is the indexed address of operand
-        var resultAddr = w(this.at(addr), this.at(addr+1));
+        var resultAddr = w(this.at(addr), this.at(addr + 1));
+        if (addressOnly) return resultAddr;
 
-        // indirect addressing if always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        // indirect addressing is always indexed
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
     //  Indirect Indexed Addressing
     //  @|0000
-    II: function(size, b0, b1) {
-        
+    II: function (size, addressOnly, b0, b1) {
+
         // addr is the absolute address of the address of the operand
         var addr = w(this.getDataIndex() + b0, b1);
 
         // resultAddr is the indexed address of operand
-        var resultAddr = w(this.at(addr), this.at(addr+1));
+        var resultAddr = w(this.at(addr), this.at(addr + 1));
+        if (addressOnly) return resultAddr;
 
         // indirect addressing is always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
     //  Indirect Page Zero Addressing
     //  @|00
-    IZ: function(size, b0) {
-        
+    IZ: function (size, addressOnly, b0, b1) {
+
         // addr is the absolute address of the address of the operand
         // hi byte is dataIndex, lo byte is the given offset
-        var addr = w(this.getDataIndex(), b0);
+        var addr = w(this.getDataIndex(), b1);
 
         // resultAddr is the indexed address of operand
-        var resultAddr = w(this.at(addr), this.at(addr+1));
+        var resultAddr = w(this.at(addr), this.at(addr + 1));
+        if (addressOnly) return resultAddr;
 
         // indirect addressing is always indexed
-        var result = this.at(this.getDataIndex()+hi(resultAddr), lo(resultAddr));
-        if (size == 2) result = w(result, this.at(this.getDataIndex()+hi(resultAddr), 1+lo(resultAddr)))
+        var result = this.at(this.getDataIndex() + hi(resultAddr), lo(resultAddr));
+        if (size == 2) result = w(result, this.at(this.getDataIndex() + hi(resultAddr), 1 + lo(resultAddr)))
         return result;
     },
 
 };
+
+
+Chip.prototype.ALU = {
+    ADD: function(value) {
+        this.setAccumulator((this.getAccumulator() + value));
+    },
+    SUB: function (value) {
+        this.setAccumulator((this.getAccumulator() - value));
+    },
+    MUL: function (value) {
+        this.setAccumulator((this.getAccumulator() * value));
+    },
+    DIV: function (value) {
+        this.setAccumulator(Math.floor(this.getAccumulator() / value));
+    },
+    MOD: function (addr) {
+        this.setAccumulator((this.getAccumulator() % value));
+    },
+    AND: function (value) {
+        this.setAccumulator((this.getAccumulator() & value));
+    },
+    OR: function (value) {
+        this.setAccumulator((this.getAccumulator() | value));
+    },
+    XOR: function (value) {
+        this.setAccumulator((this.getAccumulator() ^ value));
+    },
+    NOT: function (addr) {
+        this.memRawWriteB(addr, ~this.at(addr));
+    },
+    SHL: function (addr) {
+        this.memRawWriteB(addr, this.at(addr) << 1);
+    },
+    SHR: function (addr) {
+        this.memRawWriteB(addr, this.at(addr) >>> 1);
+    },
+    ROL: function (addr) {
+        var bit = ((this.at(addr) & 0x80) == 0x80) ? 0x01 : 0;
+        this.memRawWriteB(addr, (this.at(addr) << 1) + bit);
+    },
+    ROR: function (addr) {
+        var bit = ((this.at(addr) & 0x01) == 0x01) ? 0x80 : 0;
+        this.memRawWriteB(addr, (this.at(addr) >>> 1) + bit);
+    },
+    BIT: function (value) {
+        this.setAccumulator(1 << value);
+    },
+    // empty slot
+    // empty slot
+}
 
 
 Chip.prototype.exeTree = {};
@@ -592,20 +659,24 @@ Chip.prototype.exeTree = {};
 _b.syntax = {
     word: `a:[0-9A-F] b:[0-9A-F] c:[0-9A-F] d:[0-9A-F] _* { return [parseInt(a+b, 16), parseInt(c+d, 16)]; }`,
     byte: `a:[0-9A-F] b:[0-9A-F] _* { return [parseInt(a+b, 16)]; }`,
-    IMX: `'#'  val:word { return val; }`,       // immediate extended
-    IM:  `'#'  val:byte { return val; }`,       // immediate
-    DRX: `'$'? '+' val:word { return val; }`,   // direct relative extended
-    DR:  `'$'? '+' val:byte { return val; }`,   // direct relative
-    DE:  `'$'? '€' val:byte { return val; }`,   // direct envregister
-    DA:  `'$'? '_' val:word { return val; }`,   // direct absolute
-    DI:  `'$'? '|' val:word { return val; }`,   // direct indexed
-    DZ:  `'$'? '|' val:byte { return val; }`,   // direct page zero
-    IRX: `'@+' val:word { return val; }`,       // indirect relative extended
-    IR:  `'@+' val:byte { return val; }`,       // indirect relative
-    IE:  `'@€' val:byte { return val; }`,       // indirect envregister
-    IA:  `'@_' val:word { return val; }`,       // indirect absolute
-    II:  `'@|' val:word { return val; }`,       // indirect indexed
-    IZ:  `'@|' val:byte { return val; }`,       // indirect page zero
+    SIX:  `'#-' val:word { var v = toSignedWord(w(val[0], val[1]));
+                return [hi(v), lo(v)]; }`,          // signed immediate extended
+    SI:   `'#-' val:byte {
+                return [toSignedByte(val[0])]; }`,  // signed immediate
+    UIX:  `'#' '+'? val:word { return val; }`,  // unsigned immediate extended
+    UI:   `'#' '+'? val:byte { return val; }`,  // unsigned immediate
+    DRX:  `'$'? '&' val:word { return val; }`,  // direct relative extended
+    DR:   `'$'? '&' val:byte { return val; }`,  // direct relative
+    DE:   `'$'? '€' val:byte { return val; }`,  // direct envregister
+    DA:   `'$'? '_' val:word { return val; }`,  // direct absolute
+    DI:   `'$'? '|' val:word { return val; }`,  // direct indexed
+    DZ:   `'$'? '|' val:byte { return val; }`,  // direct page zero
+    IRX:  `'@&' val:word { return val; }`,      // indirect relative extended
+    IR:   `'@&' val:byte { return val; }`,      // indirect relative
+    IE:   `'@€' val:byte { return val; }`,      // indirect envregister
+    IA:   `'@_' val:word { return val; }`,      // indirect absolute
+    II:   `'@|' val:word { return val; }`,      // indirect indexed
+    IZ:   `'@|' val:byte { return val; }`,      // indirect page zero
 };
 
 _b.opcodeSyntax = {};
@@ -621,24 +692,39 @@ _b.hexCode = 0x01; // opcode hex value
 _b.dest = _b.instructions.MOV.addressingModes[0];
 _b.src = _b.instructions.MOV.addressingModes[1];
 
-//_b.movVariants = [];
-
-for (_b.d=0; _b.d<_b.dest.length; _b.d++) {
-    for (_b.s=0; _b.s<_b.src.length; _b.s++) {
+for (_b.d = 0; _b.d < _b.dest.length; _b.d++) {
+    for (_b.s = 0; _b.s < _b.src.length; _b.s++) {
 
         if (_b.addressingModes[_b.dest[_b.d]].size + _b.addressingModes[_b.src[_b.s]].size == 3) {
 
-            /*_b.movVariants.push({
-                opcode: "MOV."+_b.dest[_b.d]+'.'+_b.src[_b.s],
-                destination: _b.addressingModes[_b.dest[_b.d]].desc,
-                source: _b.addressingModes[_b.src[_b.s]].desc,
-                wordSizedDestination: _b.addressingModes[_b.dest[_b.d]].size == 2
-            });*/
-
-            _b.opcodeSyntax["MOV_"+_b.dest[_b.d]+'_'+_b.src[_b.s]] = `"MOV" _+ d:${_b.dest[_b.d]} _* "," _* s:${_b.src[_b.s]} eol { return [${_b.hexCode}].concat(d).concat(s); }`;
+            _b.opcodeSyntax["MOV_" + _b.dest[_b.d] + '_' + _b.src[_b.s]] = `"MOV" _+ d:${_b.dest[_b.d]} _* "," _* s:${_b.src[_b.s]} eol { return [${_b.hexCode}].concat(d).concat(s); }`;
 
             Chip.prototype.exeTree[_b.hexCode] = new Function("byte", `
 
+                console.log("exeTree executing: hexCode ${_b.hexCode} (MOV)");
+                console.log("destAM: ${_b.dest[_b.d]}");
+                console.log("srcAM:  ${ _b.src[_b.s]}");
+
+                var destAddr, srcValue;
+
+                var valSize = this.getFlag(MOV_WORDS) ? 2 : 1
+                
+                if (_b.addressingModes.${_b.dest[_b.d]}.size == 1) {
+                    destAddr = this.fetch.${_b.dest[_b.d]}.call(this, valSize, true, 0, byte[1]);
+                    srcValue = this.fetch.${ _b.src[_b.s]}.call(this, valSize, false, byte[2], byte[3]);
+                } else {
+                    destAddr = this.fetch.${_b.dest[_b.d]}.call(this, valSize, true, byte[1], byte[2]);
+                    srcValue = this.fetch.${ _b.src[_b.s]}.call(this, valSize, false, 0, byte[3]);
+                }
+
+                console.log("[destAddr]", destAddr.toString(16));
+                console.log("[srcValue]", srcValue.toString(16));
+
+                if (this.getFlag(MOV_WORDS))
+                    this.memRawWriteW(destAddr, srcValue);
+                else
+                    this.memRawWriteB(destAddr, srcValue);
+                
             `);
 
             _b.hexCode++;
@@ -652,18 +738,33 @@ for (_b.d=0; _b.d<_b.dest.length; _b.d++) {
 
 // Arithmetic
 
-_b.mathOpcodes = ["ADD", "ADDC", "SUB", "SUBC", "AND", "OR", "XOR", "SHL", "SHR", "RL", "RR", "RLC", "RRC", "BIT", "BON", "BOFF"];
+_b.mathOpcodes = ["ADD", "MUL", "SUB", "DIV", "AND", "OR", "XOR", "SHL", "SHR", "ROL", "ROR", "MOD", "NOT", "BIT"];
 
-_b.hexCode = 84;
+_b.hexCode = 96;
 
-_b.val =  _b.instructions.MOV.addressingModes[0];
+Chip.prototype.exeTree[_b.hexCode] = {};
 
-for (_b.mo=0; _b.mo<_b.mathOpcodes.length; _b.mo++) {
-    for (_b.am=0; _b.am<_b.val.length; _b.am++) {
+_b.val = Object.keys(_b.addressingModes);
+
+for (_b.mo = 0; _b.mo < _b.mathOpcodes.length; _b.mo++) {
+    for (_b.am = 0; _b.am < _b.val.length; _b.am++) {
 
         _b.hexCode2 = (_b.mo << 4) + _b.am;
 
-        _b.opcodeSyntax[_b.mathOpcodes[_b.mo]+'_'+_b.val[_b.am]] = `"${_b.mathOpcodes[_b.mo]}" _+ v:${_b.val[_b.am]} eol { if (v.length < 2) v = [0].concat(v); return [${_b.hexCode}, ${_b.hexCode2}].concat(v); }`;
+        _b.opcodeSyntax[_b.mathOpcodes[_b.mo] + '_' + _b.val[_b.am]] = `"${_b.mathOpcodes[_b.mo]}" _+ v:${_b.val[_b.am]} eol { if (v.length < 2) v = [0].concat(v); return [${_b.hexCode}, ${_b.hexCode2}].concat(v); }`;
+
+        Chip.prototype.exeTree[_b.hexCode][_b.hexCode2] = new Function("byte", `
+
+            var fetched = this.fetch.${_b.val[_b.am]}.call(this, 2, ${
+                _b.mathOpcodes[_b.mo] == "NOT" ||
+                _b.mathOpcodes[_b.mo] == "SHL" || // these need addresses, not values
+                _b.mathOpcodes[_b.mo] == "SHR" ||
+                _b.mathOpcodes[_b.mo] == "ROL" ||
+                _b.mathOpcodes[_b.mo] == "ROR"
+            }, byte[2], byte[3]);
+
+            this.ALU.${_b.mathOpcodes[_b.mo]}.call(this, fetched);
+        `);
     }
 }
 
@@ -674,7 +775,7 @@ for (_b.mo=0; _b.mo<_b.mathOpcodes.length; _b.mo++) {
 // asm parser
 
 _b.parserSource = `
-asm = __* src:(eol / ${Object.keys(_b.opcodeSyntax).join(' / ')})* { return src.filter(i => typeof i != "undefined"); }
+asm = __* src:(eol / ${Object.keys(_b.opcodeSyntax).join(' / ')})* { Chip.prototype.parsed = []; src.filter(i => typeof i != "undefined").forEach(i => Chip.prototype.parsed = Chip.prototype.parsed.concat(i)); return Chip.prototype.parsed; }
 
 _
 = [ \\t]
@@ -707,22 +808,22 @@ ${_b.s}
 `;
 }
 
-console.log(_b.parserSource);
+//console.log(_b.parserSource);
 
-Chip.prototype.parse = function() {
-    
+Chip.prototype.parse = function () {
+
     var parser = peg.generate(_b.parserSource);
 
-    return function(src) {
+    return function (src) {
         readySrc = src
-        .toUpperCase()
-        // syntactic sugar
-        .replace(/(\W)ACC(\W)/g, "$1€0A$2")
-        .replace(/(\W)IH(\W)/g, "$1€06$2")
-        .replace(/(\W)SP(\W)/g, "$1€04$2")
-        .replace(/(\W)PC(\W)/g, "$1€0A22")
-         +'\n';
-        console.log("readySrc", readySrc);
+            .toUpperCase()
+            // syntactic sugar
+            .replace(/(\W)ACC(\W)/g, "$1€0A$2")
+            .replace(/(\W)IH(\W)/g, "$1€06$2")
+            .replace(/(\W)SP(\W)/g, "$1€04$2")
+            .replace(/(\W)PC(\W)/g, "$1€0A22")
+            + '\n';
+        //console.log(readySrc);
         return parser.parse(readySrc);
     }
 }();
@@ -735,6 +836,6 @@ Chip.prototype.parse = function() {
 
 
 
-_b = undefined; // was just needed for building stuff
+// _b = undefined; // was just needed for building stuff
 
 

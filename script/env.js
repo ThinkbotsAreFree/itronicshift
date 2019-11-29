@@ -84,8 +84,21 @@ Chip.prototype.newThread = function(procId, opt) {
         dataContent:                new ArrayBuffer(),
         programContent:             new ArrayBuffer(),
         stackContent:               new ArrayBuffer(),
-        interruptHandlerContent:    new ArrayBuffer()
+        interruptHandlerContent:    new ArrayBuffer(),
+        asmSource:                  false
     }, opt);
+
+    // parse if asm provided
+    if (opt.asmSource) {
+        this.parsingSucceeded = true;
+        try {
+            opt.programContent = this.parse(opt.asmSource);
+        } catch(e) { console.error(opt.asmSource); console.error(e.message); this.parsingSucceeded = false; }
+        if (!this.parsingSucceeded) return ERR_INVALID_SOURCE;
+    }
+
+//    console.log(opt.asmSource);
+//    console.log(opt.programContent);
 
     // check: enough unfragmented memory space
     var freeSpace = this.findFreeSpace(opt.requiredSpace);

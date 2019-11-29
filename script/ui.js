@@ -3,13 +3,6 @@
 var ui = {};
 
 
-ui.changePrompt = function(newPrompt) {
-    document.getElementById("prompt").innerHTML = newPrompt+"&nbsp;";
-}
-
-
-ui.changePrompt('$');
-
 
 ui.onInputKeypress = function() {
     var key = window.event.keyCode;
@@ -70,3 +63,53 @@ ui.log = function() {
     }
     document.getElementById("term-output").innerHTML += txt+"<br>";
 };
+
+ui.xScale = 128;
+ui.yScale = 128;
+ui.xGap = 16;
+ui.yGap = 16;
+
+ui.w = function(size) {
+    return ui.xScale*size + ui.xGap*(size-1);
+}
+
+ui.h = function(size) {
+    return ui.xScale*size + ui.xGap*(size-1);
+}
+
+
+
+var iso = new Isotope( "#master", {
+    itemSelector: ".screen",
+    originTop: false,
+    layoutMode: "masonryHorizontal",
+    columnWidth: 80,
+    gutter: 16,
+});
+
+// iso.arrange({ filter: ".demo" });
+
+
+for (ui.f=0; ui.f<10; ui.f++) {
+
+    shortcut.add("Ctrl+"+ui.f, new Function(`
+        $("#f${ui.f} .fcom").addClass("pressed");
+        window.event.preventDefault();
+        return false;
+    `), { type: "keydown" });
+
+    shortcut.add("Ctrl+"+ui.f, new Function(`
+        $("#f${ui.f} .fcom").removeClass("pressed");
+        window.event.preventDefault();
+        return false;
+    `), { type: "keyup" });
+}
+
+/*
+function doc_keyUp(e) {
+
+    e.preventDefault();
+}
+// register the handler 
+document.addEventListener('keydown', doc_keyUp, false);
+*/
