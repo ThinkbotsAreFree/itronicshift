@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
     <title>[X-AM]</title>
     <meta charset="utf-8">
@@ -7,70 +7,43 @@
     <link rel="stylesheet" href="style/augmented.css">
     <link rel="stylesheet" href="style/main.css">
 </head>
-<body><div id="background"></div>
+<body><div id="background1"></div><div id="background2"></div>
 
 
     
     <div id="master">
 
-        <div class="demo screen" augmented-ui="tl-clip br-clip-y exe">
+        <div id="term-io" class="demo screen" augmented-ui="tl-clip br-clip-y exe">
             <div class="title title-lit">Terminal I/O</div>
         </div>
-        <div class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
+        <div id="cons-20" class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
                 <div class="title">Console 2.0</div>
         </div>
-        <div class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
+        <div id="cons-30" class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
                 <div class="title">Console 3.0</div>
         </div>
-        <div class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
+        <div id="cons-40" class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
             <div class="title">Console 4.0</div>
         </div>
 
-        <div class="demo screen" augmented-ui="tl-clip br-clip-y exe">
-            <div class="title title-lit">Terminal I/O</div>
+        <div id="term-io-2" class="demo screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title title-lit">Terminal I/O 2</div>
         </div>
-        <div class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
-                <div class="title">Console 2.0</div>
+        <div id="cons-21" class="demo2 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 2.1</div>
         </div>
-        <div class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
-                <div class="title">Console 3.0</div>
+        <div id="cons-31" class="demo3 screen" augmented-ui="tl-clip br-clip-y exe">
+                <div class="title">Console 3.1</div>
         </div>
-        <div class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
-            <div class="title">Console 4.0</div>
+        <div id="cons-41" class="demo4 screen" augmented-ui="tl-clip br-clip-y exe">
+            <div class="title">Console 4.1</div>
         </div>
 
     </div>
 
-    <!--div id="function-keys" augmented-ui="tl-clip-x tr-clip-x exe">
-        <div class="half-function-keys">
-            <div class="quarter-function-keys">
-                <div class="fslot" id="f1"><span class="fkey">F1</span><span class="fcom">Test</span></div>
-                <div class="fslot" class="fslot" id="f2"><span class="fkey">F2</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f3"><span class="fkey">F3</span><span class="fcom">&nbsp;</span></div>
-            </div>
-            <div class="quarter-function-keys">
-                <div class="fslot" id="f4"><span class="fkey">F4</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f5"><span class="fkey">F5</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f6"><span class="fkey">F6</span><span class="fcom">&nbsp;</span></div>
-            </div>
-        </div>
-        <div class="half-function-keys">
-            <div class="quarter-function-keys">
-                <div class="fslot" id="f7"><span class="fkey">F7</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f8"><span class="fkey">F8</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f9"><span class="fkey">F9</span><span class="fcom">&nbsp;</span></div>
-            </div>
-            <div class="quarter-function-keys">
-                <div class="fslot" id="f10"><span class="fkey">F10</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f11"><span class="fkey">F11</span><span class="fcom">&nbsp;</span></div>
-                <div class="fslot" id="f12"><span class="fkey">F12</span><span class="fcom">&nbsp;</span></div>
-            </div>
-        </div>
-    </div-->
-
-
-
     <div id="function-keys" augmented-ui="tl-clip-x tr-clip-x exe">
+        <span id="sound-toggle">🔈&#xFE0E; F4</span>
+        <span id="fullscreen-toggle">▣ F11</span>
         <div class="half-function-keys">
             <div class="fslot" id="f1"><span class="fkey">C1</span><span class="fcom">Test</span></div>
             <div class="fslot" id="f2"><span class="fkey">C2</span><span class="fcom">&nbsp;</span></div>
@@ -87,12 +60,13 @@
         </div>
     </div>
 
-
+    <!--script src="script/particles.min.js"></script-->
     <script src="script/peg-0.10.0.min.js"></script>
-    <script src="script/shortcut.js"></script> <!-- http://www.openjs.com/scripts/events/keyboard_shortcuts/ -->
+    <script src="script/hotkeys.min.js"></script>
     <script src="script/jquery-3.4.1.min.js"></script>
     <script src="script/isotope.pkgd.min.js"></script>
     <script src="script/masonry-horizontal.js"></script>
+    <script src="script/howler.min.js"></script>
 
     <script src="script/ui.js"></script>
 

@@ -9,7 +9,7 @@
 }
 
 html, body {
-    scrollbar-color: #444 #111 !important;     
+    /*scrollbar-color: #444 #111 !important;     */
     color: #ccc;
     margin: 0;
     padding: 0;
@@ -19,30 +19,52 @@ html, body {
 body {
     font-family: United;
     font-size: 16px;
-    background: #000;
     overflow: hidden;
 /*    background: url("background.jpeg");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;*/
-    cursor: none;
+    cursor: default;
 }
 
-#background {
-    width: 150vw;
-    height: 150vh;
+@keyframes animatedBackground {
+    0% {
+        transform: perspective(1280px) rotateX(0deg) translateZ(0) translateX(0) translateY(0);
+    }
+    100% {
+        transform: perspective(1280px) rotateX(60deg) translateZ(0) translateX(0) translateY(0);
+    } 
+}
+
+
+#background1 {
+    background: radial-gradient(at center bottom, rgb(63, 0, 0) 0%, #000 100%) no-repeat;
+    background-size: 100vw 100vh;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    position: fixed;
+}
+
+
+#background2 {
+    width: 200vw;
+    height: 400vh;
     z-index: -1;
     position: fixed;
-    top: -25vh;
-    left: -25vw;
-    transform: perspective(1440px) rotateX(45deg) translateZ(160px) translateY(-80px);
+    top: -100vh;
+    left: -50vw;
+    transform-origin: center;
     background:
-        radial-gradient(#930 1.5px, transparent 1px),
-        linear-gradient(0deg, rgba(153, 51, 0, 0.2) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(153, 51, 0, 0.2) 1px, transparent 1px);
+        radial-gradient(rgba(153, 51, 0, 0.4) 2.5px, transparent 1px),
+        linear-gradient(0deg, rgba(153, 51, 0, 0.1) 2px, transparent 1px),
+        linear-gradient(90deg, rgba(153, 51, 0, 0.1) 2px, transparent 1px);
+    transform: perspective(1280px) rotateX(30deg) translateY(-100vh);
     background-position: 0 0, 32px 32px, 32px 32px;
     background-size: 64px 64px;
     background-attachment: fixed;
+    /*transition: all 8s ease;*/
+    /*animation: animatedBackground 5s linear infinite;*/
 }
 
 td, th {
@@ -102,19 +124,19 @@ div.title-lit {
 #master {
     height: calc(100vh - 3em)!important;
     margin: 0 auto;
+    transition: 0.2s;
 }
 
 #function-keys {
-    cursor: default;
-    --aug-border: 2px;
+    --aug-border: 1px;
     --aug-inset: 0px;
     text-align: center;
-    --aug-inset-bg:  #333;
-    --aug-tl-width: 60px;
+    --aug-inset-bg:  linear-gradient(#222, #333);
+    --aug-tl-width: 4.8em;
     --aug-tl-height: 10px;
-    --aug-tr-width: 60px;
+    --aug-tr-width: 4.8em;
     --aug-tr-height: 10px;
-    --aug-border-bg: #555;
+    --aug-border-bg: #444;
     width: calc(100vw + 4px);
     position: fixed;
     bottom: -2px;
@@ -139,8 +161,8 @@ div.title-lit {
     min-width: 8em;
     border-top: 1px solid #222;
     border-left: 1px solid #222;
-    border-bottom: 1px solid #555;
-    border-right: 1px solid #555;
+    border-bottom: 1px solid #444;
+    border-right: 1px solid #444;
     text-align: left;
     background: #333;
     margin-bottom: 4px !important;
@@ -149,14 +171,15 @@ div.title-lit {
 }
 
 .fkey {
-    border-top: 1px solid #555;
-    border-left: 1px solid #555;
+    border-top: 1px solid #444;
+    border-left: 1px solid #444;
     border-bottom: 1px solid #222;
     border-right: 1px solid #222;
     width: 1.25vw;
     min-width: 1.25em;
     text-align: center;
     background: #333;
+    color: #999;
 }
 
 .fcom {
@@ -175,6 +198,7 @@ div.title-lit {
 }
 
 div.screen {
+    cursor: none;
     margin-bottom: 16px;
     margin-left: 16px;
     --aug-border: 2px;
@@ -187,4 +211,29 @@ div.screen {
     padding: 0;
 }
 
+#sound-toggle, #fullscreen-toggle {
+    position: fixed;
+    bottom: 2px;
+    width: 4em;
+    border-top: 1px solid #444;
+    border-left: 1px solid #444;
+    border-bottom: 1px solid #222;
+    border-right: 1px solid #222;
+    background: #333;
+    color: #999;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#sound-toggle {
+    left: 4px;
+}
+
+#fullscreen-toggle {
+    right: 4px;
+}
+
+#sound-toggle.on, #fullscreen-toggle.on {
+    color: #ffaa00;
+}
 
